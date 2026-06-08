@@ -1,0 +1,68 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: insurbot-api
+  annotations:
+    run.googleapis.com/ingress: all
+spec:
+  template:
+    metadata:
+      annotations:
+        # Max 3 instances for cost control; adjust for production
+        autoscaling.knative.dev/maxScale: "3"
+        autoscaling.knative.dev/minScale: "0"
+        # Use Workload Identity instead of mounted service account key
+        run.googleapis.com/service-account: insurbot-sa@${PROJECT_ID}.iam.gserviceaccount.com
+    spec:
+      containerConcurrency: 80
+      timeoutSeconds: 60
+      containers:
+        - image: ${IMAGE_URI}
+          ports:
+            - name: http1
+              containerPort: 8080
+          resources:
+            limits:
+              cpu: "1"
+              memory: 512Mi
+          env:
+            - name: GCP_PROJECT_ID
+              value: ${PROJECT_ID}
+            - name: GCP_REGION
+              value: us-central1
+            - name: BQ_DATASET
+              value: insurbot
+            - name: BQ_LOCATION
+              value: US
+            - name: VERTEX_MODEL_ID
+              value: gemini-1.5-pro
+            - name: VERTEX_TEMPERATURE
+              value: "0.2"
+            - name: VERTEX_MAX_OUTPUT_TOKENS
+              value: "1024"
+            - name: GUARDRAIL_MIN_CONFIDENCE
+              value: "0.75"
+            - name: GUARDRAIL_MAX_RESPONSE_CHARS
+              value: "2000"
+            - name: LOG_LEVEL
+              value: INFO
+            - name: DIALOGFLOW_AGENT_ID
+              valueFrom:
+                secretKeyRef:
+                  key: latest
+                  name: DIALOGFLOW_AGENT_ID
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 10
+            periodSeconds: 30
+          readinessProbe:
+            httpGet:
+              path: /readiness
+              port: 8080
+            initialDelaySeconds: 15
+            periodSeconds: 30
+  traffic:
+    - percent: 100
+      latestRevision: true
