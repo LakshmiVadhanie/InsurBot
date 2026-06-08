@@ -4,8 +4,8 @@ Unit tests for Dialogflow CX webhook routing and fulfillment.
 
 from unittest.mock import MagicMock
 
-from fastapi.testclient import TestClient
 import pytest
+from fastapi.testclient import TestClient
 
 from api.dependencies import get_bigquery_service, get_vertex_service
 from api.main import app

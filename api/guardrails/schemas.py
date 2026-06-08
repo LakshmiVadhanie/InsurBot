@@ -13,7 +13,6 @@ from typing import Any
 
 from pydantic import BaseModel, Field
 
-
 # ---------------------------------------------------------------------------
 # Enumerations
 # ---------------------------------------------------------------------------
@@ -153,7 +152,7 @@ class WebhookResponse(BaseModel):
     model_config = {"populate_by_name": True}
 
     @classmethod
-    def from_text(cls, text: str, session_params: dict[str, Any] | None = None) -> "WebhookResponse":
+    def from_text(cls, text: str, session_params: dict[str, Any] | None = None) -> WebhookResponse:
         body: dict[str, Any] = {
             "fulfillmentResponse": {
                 "messages": [{"text": {"text": [text]}}]

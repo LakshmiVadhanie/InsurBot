@@ -3,6 +3,7 @@ Unit tests for the Vertex AI generative model service wrapper.
 """
 
 from unittest.mock import MagicMock, patch
+
 import pytest
 
 from api.services.vertex_service import VertexService

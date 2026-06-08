@@ -12,7 +12,13 @@ from __future__ import annotations
 import structlog
 import vertexai
 from tenacity import retry, retry_if_not_exception_type, stop_after_attempt, wait_exponential
-from vertexai.generative_models import GenerationConfig, GenerativeModel, HarmBlockThreshold, HarmCategory, SafetySetting
+from vertexai.generative_models import (
+    GenerationConfig,
+    GenerativeModel,
+    HarmBlockThreshold,
+    HarmCategory,
+    SafetySetting,
+)
 
 logger = structlog.get_logger(__name__)
 
@@ -26,6 +32,14 @@ _SAFETY_SETTINGS = [
 
 class VertexService:
     """Thin wrapper around Vertex AI GenerativeModel."""
+
+    _project: str
+    _region: str
+    _model_id: str
+    _temperature: float
+    _max_output_tokens: int
+    _model: GenerativeModel
+    _generation_config: GenerationConfig
 
     def __init__(
         self,
@@ -91,7 +105,7 @@ class VertexService:
         if not text:
             raise RuntimeError("Vertex AI returned empty text")
 
-        return text
+        return str(text)
 
     @property
     def model_id(self) -> str:

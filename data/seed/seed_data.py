@@ -23,7 +23,6 @@ from dataclasses import dataclass, field
 
 from google.cloud import bigquery
 
-
 # ---------------------------------------------------------------------------
 # Domain constants
 # ---------------------------------------------------------------------------

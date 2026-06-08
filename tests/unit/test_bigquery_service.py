@@ -3,8 +3,8 @@ Unit tests for the BigQuery service query execution.
 """
 
 from unittest.mock import MagicMock, patch
+
 import pytest
-from google.cloud import bigquery
 
 from api.services.bigquery_service import BigQueryService
 

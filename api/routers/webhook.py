@@ -17,6 +17,8 @@ Any unrecognized intent falls through to a default response.
 
 from __future__ import annotations
 
+from typing import Any
+
 import structlog
 from fastapi import APIRouter, Depends, HTTPException, Request, status
 
@@ -46,8 +48,8 @@ _DEFAULT_RESPONSE = (
 # Intent parameter extractors
 # ---------------------------------------------------------------------------
 
-def _extract_policy_params(intent_params: dict) -> dict:
-    params: dict = {}
+def _extract_policy_params(intent_params: dict[str, Any]) -> dict[str, Any]:
+    params: dict[str, Any] = {}
     if pid := intent_params.get("policy_id", {}).get("stringValue"):
         params["policy_id"] = pid
     if name := intent_params.get("holder_name", {}).get("stringValue"):
@@ -55,8 +57,8 @@ def _extract_policy_params(intent_params: dict) -> dict:
     return params
 
 
-def _extract_claims_params(intent_params: dict) -> dict:
-    params: dict = {}
+def _extract_claims_params(intent_params: dict[str, Any]) -> dict[str, Any]:
+    params: dict[str, Any] = {}
     if pid := intent_params.get("policy_id", {}).get("stringValue"):
         params["policy_id"] = pid
     if ctype := intent_params.get("claim_type", {}).get("stringValue"):
@@ -64,8 +66,8 @@ def _extract_claims_params(intent_params: dict) -> dict:
     return params
 
 
-def _extract_coverage_params(intent_params: dict) -> dict:
-    params: dict = {}
+def _extract_coverage_params(intent_params: dict[str, Any]) -> dict[str, Any]:
+    params: dict[str, Any] = {}
     if raw_ids := intent_params.get("plan_ids", {}).get("listValue", {}).get("values", []):
         params["plan_ids"] = [v.get("stringValue") for v in raw_ids if v.get("stringValue")]
     if tier := intent_params.get("tier", {}).get("stringValue"):
@@ -96,7 +98,7 @@ async def fulfillment(
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail=f"Invalid Dialogflow CX webhook payload: {exc}",
-        )
+        ) from exc
 
     user_text = webhook_req.text or ""
     intent_name = webhook_req.intent_info.display_name

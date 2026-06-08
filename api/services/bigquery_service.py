@@ -14,6 +14,9 @@ Results are validated and returned as typed Pydantic models.
 
 from __future__ import annotations
 
+from collections.abc import Sequence
+from typing import Any
+
 import structlog
 from google.cloud import bigquery
 from tenacity import retry, stop_after_attempt, wait_exponential
@@ -31,7 +34,9 @@ class BigQueryService:
         self._dataset = dataset
         self._location = location
         self._client = bigquery.Client(project=project_id)
-        self._table = lambda name: f"`{project_id}.{dataset}.{name}`"
+
+    def _table(self, name: str) -> str:
+        return f"`{self._project}.{self._dataset}.{name}`"
 
     # ------------------------------------------------------------------
     # Connectivity
@@ -49,8 +54,8 @@ class BigQueryService:
     def _run_query(
         self,
         sql: str,
-        params: list[bigquery.ScalarQueryParameter | bigquery.ArrayQueryParameter],
-    ) -> list[dict]:
+        params: Sequence[bigquery.ScalarQueryParameter | bigquery.ArrayQueryParameter],
+    ) -> list[dict[str, Any]]:
         job_config = bigquery.QueryJobConfig(
             query_parameters=params,
         )
