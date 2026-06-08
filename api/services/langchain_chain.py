@@ -48,7 +48,7 @@ class BigQueryRetriever(BaseRetriever):
       - claim_type      : filter open claims by type
     """
 
-    bq_service: BigQueryService
+    bq_service: Any
 
     model_config = {"arbitrary_types_allowed": True}
 

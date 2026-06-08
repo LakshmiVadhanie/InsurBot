@@ -11,7 +11,7 @@ from __future__ import annotations
 
 import structlog
 import vertexai
-from tenacity import retry, stop_after_attempt, wait_exponential
+from tenacity import retry, retry_if_not_exception_type, stop_after_attempt, wait_exponential
 from vertexai.generative_models import GenerationConfig, GenerativeModel, HarmBlockThreshold, HarmCategory, SafetySetting
 
 logger = structlog.get_logger(__name__)
@@ -59,7 +59,11 @@ class VertexService:
         if not response.text:
             raise RuntimeError("Vertex AI ping returned empty response")
 
-    @retry(stop=stop_after_attempt(3), wait=wait_exponential(multiplier=1, min=1, max=8))
+    @retry(
+        retry=retry_if_not_exception_type(ValueError),
+        stop=stop_after_attempt(3),
+        wait=wait_exponential(multiplier=1, min=1, max=8),
+    )
     def generate(self, prompt: str) -> str:
         """
         Send a prompt and return the generated text.

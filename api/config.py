@@ -15,7 +15,7 @@ class Settings(BaseSettings):
     )
 
     # GCP
-    gcp_project_id: str = Field(..., description="GCP project ID")
+    gcp_project_id: str = Field("your-gcp-project", description="GCP project ID")
     gcp_region: str = Field("us-central1", description="Default GCP region")
 
     # BigQuery
@@ -37,7 +37,7 @@ class Settings(BaseSettings):
     log_level: str = Field("INFO")
 
     # Dialogflow CX
-    dialogflow_agent_id: str = Field(..., description="Dialogflow CX agent resource ID")
+    dialogflow_agent_id: str = Field("your-dialogflow-agent-id", description="Dialogflow CX agent resource ID")
     dialogflow_location: str = Field("global")
 
 

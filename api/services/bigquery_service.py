@@ -53,9 +53,8 @@ class BigQueryService:
     ) -> list[dict]:
         job_config = bigquery.QueryJobConfig(
             query_parameters=params,
-            location=self._location,
         )
-        job = self._client.query(sql, job_config=job_config)
+        job = self._client.query(sql, job_config=job_config, location=self._location)
         rows = list(job.result())
         return [dict(row) for row in rows]
 
