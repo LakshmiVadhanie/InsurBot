@@ -1,0 +1,25 @@
+{
+  "displayName": "insurance.coverage.compare",
+  "description": "Matches queries comparing coverage plans by plan ID, tier, or specific benefit.",
+  "trainingPhrases": [
+    { "parts": [{ "text": "Compare plans " }, { "text": "PLAN-GO-PP-101", "parameterId": "plan_ids" }, { "text": " and " }, { "text": "PLAN-PL-HM-202", "parameterId": "plan_ids" }], "repeatCount": 1 },
+    { "parts": [{ "text": "What are the differences between " }, { "text": "PLAN-SI-PP-303", "parameterId": "plan_ids" }, { "text": " and " }, { "text": "PLAN-GO-HM-404", "parameterId": "plan_ids" }], "repeatCount": 1 },
+    { "parts": [{ "text": "Show me all " }, { "text": "GOLD", "parameterId": "tier" }, { "text": " plans" }], "repeatCount": 1 },
+    { "parts": [{ "text": "What " }, { "text": "PLATINUM", "parameterId": "tier" }, { "text": " plans are available?" }], "repeatCount": 1 },
+    { "parts": [{ "text": "Which plans cover dental?" }], "repeatCount": 1 },
+    { "parts": [{ "text": "What is the deductible on plan " }, { "text": "PLAN-BR-PP-505", "parameterId": "plan_ids" }], "repeatCount": 1 },
+    { "parts": [{ "text": "Compare " }, { "text": "SILVER", "parameterId": "tier" }, { "text": " and " }, { "text": "GOLD", "parameterId": "tier" }, { "text": " plans" }], "repeatCount": 1 }
+  ],
+  "parameters": [
+    {
+      "id": "plan_ids",
+      "entityType": "@sys.any",
+      "isList": true
+    },
+    {
+      "id": "tier",
+      "entityType": "@sys.any",
+      "isList": false
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "displayName": "InsurBot",
+  "defaultLanguageCode": "en",
+  "timeZone": "America/New_York",
+  "description": "Conversational agent for insurance policy lookup, claims triage, and coverage comparison.",
+  "startFlow": "projects/-/locations/global/agents/-/flows/PolicyLookup",
+  "enableStackdriverLogging": true,
+  "enableSpellCorrection": true,
+  "advancedSettings": {
+    "loggingSettings": {
+      "enableStackdriverLogging": true,
+      "enableInteractionLogging": true
+    }
+  }
+}

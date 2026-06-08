@@ -1,0 +1,35 @@
+{
+  "displayName": "ClaimsTriage",
+  "description": "Handles claims status queries and triage for a given policy.",
+  "transitionRoutes": [
+    {
+      "intent": "insurance.claims.triage",
+      "triggerFulfillment": {
+        "webhook": "InsurBot-Webhook",
+        "tag": "claims_triage",
+        "messages": []
+      },
+      "targetPage": "END_FLOW"
+    }
+  ],
+  "eventHandlers": [
+    {
+      "event": "sys.no-match-default",
+      "triggerFulfillment": {
+        "messages": [
+          {
+            "text": {
+              "text": [
+                "I did not understand that. You can ask about the status of claims on a policy by providing a policy ID."
+              ]
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "nluSettings": {
+    "modelType": "MODEL_TYPE_ADVANCED",
+    "classificationThreshold": 0.3
+  }
+}

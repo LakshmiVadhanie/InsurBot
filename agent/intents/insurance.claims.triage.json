@@ -1,0 +1,25 @@
+{
+  "displayName": "insurance.claims.triage",
+  "description": "Matches queries about claim status, open claims, and claim summaries for a policy.",
+  "trainingPhrases": [
+    { "parts": [{ "text": "What claims does policy " }, { "text": "POL-ABC123", "parameterId": "policy_id" }, { "text": " have?" }], "repeatCount": 1 },
+    { "parts": [{ "text": "Show me open claims for " }, { "text": "POL-XYZ789", "parameterId": "policy_id" }], "repeatCount": 1 },
+    { "parts": [{ "text": "What is the claim status for " }, { "text": "POL-001122", "parameterId": "policy_id" }], "repeatCount": 1 },
+    { "parts": [{ "text": "How many claims have been approved on policy " }, { "text": "POL-AABB00", "parameterId": "policy_id" }], "repeatCount": 1 },
+    { "parts": [{ "text": "List all denied claims for " }, { "text": "POL-99AA88", "parameterId": "policy_id" }], "repeatCount": 1 },
+    { "parts": [{ "text": "Show me " }, { "text": "DENTAL", "parameterId": "claim_type" }, { "text": " claims that are open" }], "repeatCount": 1 },
+    { "parts": [{ "text": "Any open " }, { "text": "MEDICAL", "parameterId": "claim_type" }, { "text": " claims in the system?" }], "repeatCount": 1 }
+  ],
+  "parameters": [
+    {
+      "id": "policy_id",
+      "entityType": "@sys.any",
+      "isList": false
+    },
+    {
+      "id": "claim_type",
+      "entityType": "@sys.any",
+      "isList": false
+    }
+  ]
+}

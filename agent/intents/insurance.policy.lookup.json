@@ -1,0 +1,26 @@
+{
+  "displayName": "insurance.policy.lookup",
+  "description": "Matches user queries asking to look up a policy by ID or holder name.",
+  "trainingPhrases": [
+    { "parts": [{ "text": "Look up policy " }, { "text": "POL-ABC123", "parameterId": "policy_id" }], "repeatCount": 1 },
+    { "parts": [{ "text": "What is the status of policy " }, { "text": "POL-XYZ789", "parameterId": "policy_id" }], "repeatCount": 1 },
+    { "parts": [{ "text": "Find policy for " }, { "text": "John Smith", "parameterId": "holder_name" }], "repeatCount": 1 },
+    { "parts": [{ "text": "Show me " }, { "text": "Jane Doe", "parameterId": "holder_name" }, { "text": "'s policy" }], "repeatCount": 1 },
+    { "parts": [{ "text": "Retrieve policy details for " }, { "text": "POL-001122", "parameterId": "policy_id" }], "repeatCount": 1 },
+    { "parts": [{ "text": "What plan is " }, { "text": "Robert Johnson", "parameterId": "holder_name" }, { "text": " on?" }], "repeatCount": 1 },
+    { "parts": [{ "text": "Pull up the policy for " }, { "text": "Lisa Garcia", "parameterId": "holder_name" }], "repeatCount": 1 },
+    { "parts": [{ "text": "Is policy " }, { "text": "POL-99AA88", "parameterId": "policy_id" }, { "text": " active?" }], "repeatCount": 1 }
+  ],
+  "parameters": [
+    {
+      "id": "policy_id",
+      "entityType": "@sys.any",
+      "isList": false
+    },
+    {
+      "id": "holder_name",
+      "entityType": "@sys.person",
+      "isList": false
+    }
+  ]
+}

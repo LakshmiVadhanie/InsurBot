@@ -1,0 +1,35 @@
+{
+  "displayName": "CoverageComparison",
+  "description": "Handles plan comparison queries by plan ID list or tier.",
+  "transitionRoutes": [
+    {
+      "intent": "insurance.coverage.compare",
+      "triggerFulfillment": {
+        "webhook": "InsurBot-Webhook",
+        "tag": "coverage_compare",
+        "messages": []
+      },
+      "targetPage": "END_FLOW"
+    }
+  ],
+  "eventHandlers": [
+    {
+      "event": "sys.no-match-default",
+      "triggerFulfillment": {
+        "messages": [
+          {
+            "text": {
+              "text": [
+                "I did not understand that. You can compare plans by providing plan IDs or asking about a specific tier such as Gold or Platinum."
+              ]
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "nluSettings": {
+    "modelType": "MODEL_TYPE_ADVANCED",
+    "classificationThreshold": 0.3
+  }
+}

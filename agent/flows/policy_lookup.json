@@ -1,0 +1,49 @@
+{
+  "displayName": "PolicyLookup",
+  "description": "Handles policy lookup queries by policy ID or holder name.",
+  "transitionRoutes": [
+    {
+      "intent": "insurance.policy.lookup",
+      "triggerFulfillment": {
+        "webhook": "InsurBot-Webhook",
+        "tag": "policy_lookup",
+        "messages": []
+      },
+      "targetPage": "END_FLOW"
+    }
+  ],
+  "eventHandlers": [
+    {
+      "event": "sys.no-match-default",
+      "triggerFulfillment": {
+        "messages": [
+          {
+            "text": {
+              "text": [
+                "I did not understand that. You can ask about a policy by providing a policy ID like POL-XXXXXX or a holder name."
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "event": "sys.no-input-default",
+      "triggerFulfillment": {
+        "messages": [
+          {
+            "text": {
+              "text": [
+                "I did not receive any input. Please provide a policy ID or holder name."
+              ]
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "nluSettings": {
+    "modelType": "MODEL_TYPE_ADVANCED",
+    "classificationThreshold": 0.3
+  }
+}
